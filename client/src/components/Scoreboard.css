@@ -1,0 +1,105 @@
+.scoreboard {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.scoreboard__title {
+  font-family: 'Anton', sans-serif;
+  font-size: 2rem;
+  color: var(--gold);
+  text-align: center;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 20px var(--gold-glow);
+}
+
+.scoreboard__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.scoreboard__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: var(--blue-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--blue-border);
+  box-shadow: var(--shadow-card);
+  transition:
+    transform var(--duration-normal),
+    background var(--duration-normal);
+  animation: slide-in-left var(--duration-slow) var(--ease-bounce) both;
+}
+
+.scoreboard__item:nth-child(1) { animation-delay: 0ms; }
+.scoreboard__item:nth-child(2) { animation-delay: 80ms; }
+.scoreboard__item:nth-child(3) { animation-delay: 160ms; }
+.scoreboard__item:nth-child(4) { animation-delay: 240ms; }
+.scoreboard__item:nth-child(5) { animation-delay: 320ms; }
+.scoreboard__item:nth-child(6) { animation-delay: 400ms; }
+.scoreboard__item:nth-child(7) { animation-delay: 480ms; }
+.scoreboard__item:nth-child(8) { animation-delay: 560ms; }
+
+.scoreboard__item:first-child {
+  background: var(--gold-surface);
+  border-color: var(--gold);
+  box-shadow:
+    var(--shadow-card),
+    0 0 16px var(--gold-glow);
+}
+
+.scoreboard__item--offline {
+  opacity: 0.5;
+}
+
+.scoreboard__rank {
+  font-family: 'Anton', sans-serif;
+  font-size: 1.5rem;
+  color: var(--gold);
+  min-width: 2ch;
+  text-align: center;
+}
+
+.scoreboard__name {
+  flex: 1;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.scoreboard__score {
+  font-family: 'Anton', sans-serif;
+  font-size: 1.4rem;
+  color: var(--gold);
+  animation: score-pop 0.3s ease-out;
+}
+
+.scoreboard--compact .scoreboard__item {
+  padding: 6px 12px;
+}
+
+.scoreboard--compact .scoreboard__rank {
+  font-size: 1rem;
+}
+
+.scoreboard--compact .scoreboard__name {
+  font-size: 0.9rem;
+}
+
+.scoreboard--compact .scoreboard__score {
+  font-size: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scoreboard__item {
+    animation: none;
+  }
+}

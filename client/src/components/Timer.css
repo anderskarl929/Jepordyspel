@@ -1,0 +1,64 @@
+.timer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.timer__bar {
+  flex: 1;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 7px;
+  overflow: hidden;
+  box-shadow: var(--shadow-inset);
+  position: relative;
+}
+
+.timer__fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), #ffe066);
+  border-radius: 7px;
+  transition: width 1s linear;
+  box-shadow: 0 0 8px rgba(255, 204, 0, 0.3);
+  position: relative;
+}
+
+.timer__fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.2), transparent);
+  border-radius: 7px 7px 0 0;
+}
+
+.timer--urgent .timer__fill {
+  background: linear-gradient(90deg, #e74c3c, #ff6b6b);
+  box-shadow: 0 0 16px rgba(231, 76, 60, 0.5);
+  animation: pulse-bar 0.4s infinite alternate;
+}
+
+.timer--urgent {
+  animation: shake 0.5s var(--ease-smooth);
+}
+
+.timer__text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gold);
+  min-width: 3ch;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  transition: color 0.3s;
+}
+
+.timer--urgent .timer__text {
+  color: var(--red);
+  font-size: 1.8rem;
+  animation: pulse-bar 0.4s infinite alternate;
+}

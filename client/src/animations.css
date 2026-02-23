@@ -1,0 +1,172 @@
+/* ===========================
+   Shared Keyframe Animations
+   =========================== */
+
+/* --- Entrances --- */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in-down {
+  from { opacity: 0; transform: translateY(-16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  from { transform: scale(0.5); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes scale-in-bounce {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* --- Dramatic reveals --- */
+@keyframes dramatic-reveal {
+  0% { opacity: 0; transform: scale(0.3) rotateX(20deg); filter: blur(10px); }
+  60% { opacity: 1; transform: scale(1.05) rotateX(0deg); filter: blur(0); }
+  100% { opacity: 1; transform: scale(1) rotateX(0deg); filter: blur(0); }
+}
+
+@keyframes board-cell-enter {
+  from { opacity: 0; transform: scale(0.8) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* --- Continuous / looping --- */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pulse-text {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 204, 0, 0.4); }
+  50% { box-shadow: 0 0 0 12px rgba(255, 204, 0, 0); }
+}
+
+@keyframes pulse-bar {
+  to { opacity: 0.6; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* --- Feedback --- */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 50%, 90% { transform: translateX(-4px); }
+  30%, 70% { transform: translateX(4px); }
+}
+
+@keyframes shake-hard {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  10% { transform: translateX(-6px) rotate(-1deg); }
+  20% { transform: translateX(6px) rotate(1deg); }
+  30% { transform: translateX(-6px) rotate(-1deg); }
+  40% { transform: translateX(6px) rotate(1deg); }
+  50% { transform: translateX(-4px) rotate(0deg); }
+  60% { transform: translateX(4px) rotate(0deg); }
+  70% { transform: translateX(-2px); }
+  80% { transform: translateX(2px); }
+}
+
+@keyframes bounce-in {
+  0% { opacity: 0; transform: scale(0.3); }
+  50% { opacity: 1; transform: scale(1.05); }
+  70% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+@keyframes score-pop {
+  0% { transform: scale(1.4); color: white; }
+  100% { transform: scale(1); color: var(--gold); }
+}
+
+/* --- Phase transitions --- */
+@keyframes crossfade-in {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* --- Results / celebration --- */
+@keyframes trophy-entrance {
+  0% { opacity: 0; transform: translateY(40px) scale(0.5) rotate(-10deg); }
+  60% { opacity: 1; transform: translateY(-8px) scale(1.1) rotate(2deg); }
+  100% { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+}
+
+@keyframes podium-rise {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* --- Confetti particles --- */
+@keyframes confetti-fall-1 {
+  0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+@keyframes confetti-fall-2 {
+  0% { transform: translateY(-100vh) rotate(0deg) translateX(0); opacity: 1; }
+  25% { transform: translateY(-50vh) rotate(180deg) translateX(30px); }
+  50% { transform: translateY(0) rotate(360deg) translateX(-20px); }
+  75% { transform: translateY(50vh) rotate(540deg) translateX(15px); }
+  100% { transform: translateY(100vh) rotate(720deg) translateX(0); opacity: 0; }
+}
+
+@keyframes confetti-fall-3 {
+  0% { transform: translateY(-100vh) rotate(45deg) translateX(0); opacity: 1; }
+  33% { transform: translateY(-33vh) rotate(225deg) translateX(-25px); }
+  66% { transform: translateY(33vh) rotate(405deg) translateX(20px); }
+  100% { transform: translateY(100vh) rotate(585deg) translateX(-10px); opacity: 0; }
+}
+
+/* --- Correct/Wrong flash --- */
+@keyframes flash-green {
+  0% { background-color: rgba(46, 204, 113, 0.3); }
+  100% { background-color: transparent; }
+}
+
+@keyframes flash-red {
+  0% { background-color: rgba(231, 76, 60, 0.3); }
+  100% { background-color: transparent; }
+}
+
+/* --- Background effects --- */
+@keyframes particle-float {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+  25% { transform: translateY(-20px) translateX(10px); opacity: 0.6; }
+  50% { transform: translateY(-10px) translateX(-5px); opacity: 0.4; }
+  75% { transform: translateY(-30px) translateX(8px); opacity: 0.5; }
+}
+
+/* --- Connection banner --- */
+@keyframes slide-down-banner {
+  from { transform: translateY(-100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

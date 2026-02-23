@@ -1,0 +1,97 @@
+.answer-reveal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 40px 24px;
+  text-align: center;
+}
+
+/* Screen flash overlay */
+.answer-reveal::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  border-radius: 0;
+}
+
+.answer-reveal--correct::before {
+  animation: flash-green 0.6s ease-out;
+}
+
+.answer-reveal--wrong::before {
+  animation: flash-red 0.6s ease-out;
+}
+
+.answer-reveal__badge {
+  font-family: 'Anton', sans-serif;
+  font-size: 3.5rem;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  animation: scale-in-bounce var(--duration-slow) var(--ease-bounce);
+}
+
+.answer-reveal__badge--correct {
+  color: var(--green);
+  text-shadow: 0 0 30px rgba(46, 204, 113, 0.6);
+}
+
+.answer-reveal__badge--wrong {
+  color: var(--red);
+  text-shadow: 0 0 30px rgba(231, 76, 60, 0.6);
+  animation:
+    scale-in-bounce var(--duration-slow) var(--ease-bounce),
+    shake-hard 0.5s 0.4s var(--ease-smooth);
+}
+
+.answer-reveal__player {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  animation: fade-in var(--duration-normal) var(--ease-smooth) 0.3s both;
+}
+
+.answer-reveal__player strong {
+  color: var(--text-primary);
+}
+
+.answer-reveal__correct-answer {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  animation: fade-in var(--duration-normal) var(--ease-smooth) 0.5s both;
+}
+
+.answer-reveal__correct-answer strong {
+  color: var(--green);
+}
+
+.answer-reveal__points {
+  font-family: 'Anton', sans-serif;
+  font-size: 2.5rem;
+  animation: scale-in var(--duration-normal) var(--ease-bounce) 0.6s both;
+}
+
+.answer-reveal__points--positive {
+  color: var(--green);
+  text-shadow: 0 0 16px rgba(46, 204, 113, 0.4);
+}
+
+.answer-reveal__points--negative {
+  color: var(--red);
+  text-shadow: 0 0 16px rgba(231, 76, 60, 0.4);
+}
+
+.answer-reveal__next {
+  margin-top: 12px;
+  animation: fade-in-up var(--duration-normal) var(--ease-smooth) 0.8s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .answer-reveal::before,
+  .answer-reveal__badge,
+  .answer-reveal__badge--wrong {
+    animation: none;
+  }
+}

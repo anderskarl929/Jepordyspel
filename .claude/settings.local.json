@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(where:*)",
+      "Bash(cmd.exe /c \"where node 2>&1 && where npm 2>&1\")",
+      "Bash(dir:*)",
+      "Bash(npx tsc:*)",
+      "Bash(powershell:*)",
+      "Bash(winget search:*)",
+      "Bash(C:Usersandkar001nodejsnode-v22.14.0-win-x64node.exe --version)",
+      "Bash(C:Usersandkar001nodejsnode-v22.14.0-win-x64npm.cmd --version)",
+      "Bash(gh auth status:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}

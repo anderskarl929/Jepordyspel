@@ -1,0 +1,88 @@
+.buzzer {
+  width: 180px;
+  height: 180px;
+  border-radius: var(--radius-round);
+  border: 6px solid var(--gold);
+  background: radial-gradient(circle at 35% 35%, #ff5f5f, #e74c3c 40%, #c0392b 80%, #962d22 100%);
+  color: white;
+  font-family: 'Anton', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.1s, box-shadow 0.1s;
+  box-shadow:
+    0 8px 0 #8b1a1a,
+    0 12px 24px rgba(0, 0, 0, 0.5),
+    inset 0 -6px 12px rgba(0, 0, 0, 0.3),
+    inset 0 3px 8px rgba(255, 255, 255, 0.15);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.buzzer--active {
+  animation: shake 0.5s var(--ease-smooth), buzzer-pulse 1.5s 0.5s infinite;
+}
+
+.buzzer--active:active {
+  transform: translateY(6px);
+  box-shadow:
+    0 2px 0 #8b1a1a,
+    0 4px 8px rgba(0, 0, 0, 0.4),
+    inset 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.buzzer--mine {
+  background: radial-gradient(circle at 35% 35%, #ffe066, var(--gold) 40%, #d4a017 80%, #b8860b 100%);
+  color: var(--blue-dark);
+  border-color: white;
+  animation: scale-in-bounce 0.4s var(--ease-bounce);
+  box-shadow:
+    0 8px 0 #b8860b,
+    0 12px 24px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(255, 204, 0, 0.4),
+    inset 0 -6px 12px rgba(0, 0, 0, 0.2),
+    inset 0 3px 8px rgba(255, 255, 255, 0.3);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.buzzer:disabled:not(.buzzer--mine) {
+  opacity: 0.5;
+  cursor: not-allowed;
+  animation: none;
+}
+
+@keyframes buzzer-pulse {
+  0%, 100% {
+    box-shadow:
+      0 8px 0 #8b1a1a,
+      0 12px 24px rgba(0, 0, 0, 0.5),
+      0 0 0 0 rgba(231, 76, 60, 0.4),
+      inset 0 -6px 12px rgba(0, 0, 0, 0.3),
+      inset 0 3px 8px rgba(255, 255, 255, 0.15);
+  }
+  50% {
+    box-shadow:
+      0 8px 0 #8b1a1a,
+      0 12px 24px rgba(0, 0, 0, 0.5),
+      0 0 0 24px rgba(231, 76, 60, 0),
+      inset 0 -6px 12px rgba(0, 0, 0, 0.3),
+      inset 0 3px 8px rgba(255, 255, 255, 0.15);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .buzzer--active {
+    animation: none;
+    border-color: #e74c3c;
+  }
+}
+
+@media (max-width: 768px) {
+  .buzzer {
+    width: 150px;
+    height: 150px;
+    font-size: 1.6rem;
+  }
+}
