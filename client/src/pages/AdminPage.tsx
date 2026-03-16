@@ -31,6 +31,9 @@ export function AdminPage() {
   } | null>(null);
   const [dragActive, setDragActive] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [csvText, setCsvText] = useState('');
+  const [importMode, setImportMode] = useState<'file' | 'paste'>('paste');
+  const [importing, setImporting] = useState(false);
 
   // State
   const [loading, setLoading] = useState(true);
@@ -53,25 +56,39 @@ export function AdminPage() {
   }, [loadData]);
 
   // CSV Import
-  const handleFile = async (file: File) => {
+  const handleCsvImport = async (text: string) => {
     setError('');
     setImportResult(null);
+    setImporting(true);
 
-    if (!file.name.endsWith('.csv')) {
-      setError('Please select a CSV file.');
-      return;
-    }
-
-    const text = await file.text();
     try {
       const result = await importCsv(text);
       setImportResult(result);
-      // Reload categories after import
+      setCsvText('');
       const cats = await fetchCategories();
       setCategories(cats);
     } catch (err: any) {
       setError(err.message);
+    } finally {
+      setImporting(false);
     }
+  };
+
+  const handleFile = async (file: File) => {
+    if (!file.name.endsWith('.csv')) {
+      setError('Please select a CSV file.');
+      return;
+    }
+    const text = await file.text();
+    handleCsvImport(text);
+  };
+
+  const handlePasteImport = () => {
+    if (!csvText.trim()) {
+      setError('Klistra in CSV-data först.');
+      return;
+    }
+    handleCsvImport(csvText);
   };
 
   const handleDrop = (e: React.DragEvent) => {
@@ -179,27 +196,62 @@ export function AdminPage() {
       {/* CSV Import */}
       <section className="admin__section">
         <h2 className="admin__section-title">Import Questions (CSV)</h2>
-        <div
-          className={`admin__dropzone${dragActive ? ' admin__dropzone--active' : ''}`}
-          onClick={() => fileInputRef.current?.click()}
-          onDrop={handleDrop}
-          onDragOver={handleDragOver}
-          onDragLeave={handleDragLeave}
-        >
-          <p className="admin__dropzone-text">
-            Drop a CSV file here or click to browse
-          </p>
-          <p className="admin__dropzone-hint">
-            Header: category, question_text, correct_answer, wrong_answer1, wrong_answer2, wrong_answer3, points
-          </p>
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept=".csv"
-            className="admin__file-input"
-            onChange={handleFileInput}
-          />
+
+        <div className="admin__import-tabs">
+          <button
+            className={`admin__import-tab${importMode === 'paste' ? ' admin__import-tab--active' : ''}`}
+            onClick={() => setImportMode('paste')}
+          >
+            Klistra in CSV
+          </button>
+          <button
+            className={`admin__import-tab${importMode === 'file' ? ' admin__import-tab--active' : ''}`}
+            onClick={() => setImportMode('file')}
+          >
+            Ladda upp fil
+          </button>
         </div>
+
+        {importMode === 'paste' ? (
+          <div className="admin__paste-area">
+            <textarea
+              className="admin__csv-textarea"
+              value={csvText}
+              onChange={(e) => setCsvText(e.target.value)}
+              placeholder={"category,question_text,correct_answer,wrong_answer1,wrong_answer2,wrong_answer3,points\nSvensk Historia,Vilken kung...,Gustav Vasa,Karl XII,Gustav II Adolf,Erik XIV,200"}
+              rows={8}
+            />
+            <button
+              className="btn admin__paste-btn"
+              onClick={handlePasteImport}
+              disabled={importing || !csvText.trim()}
+            >
+              {importing ? 'Importerar...' : 'Importera'}
+            </button>
+          </div>
+        ) : (
+          <div
+            className={`admin__dropzone${dragActive ? ' admin__dropzone--active' : ''}`}
+            onClick={() => fileInputRef.current?.click()}
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+          >
+            <p className="admin__dropzone-text">
+              Drop a CSV file here or click to browse
+            </p>
+            <p className="admin__dropzone-hint">
+              Header: category, question_text, correct_answer, wrong_answer1, wrong_answer2, wrong_answer3, points
+            </p>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".csv"
+              className="admin__file-input"
+              onChange={handleFileInput}
+            />
+          </div>
+        )}
 
         {importResult && (
           <div className="admin__import-result">
