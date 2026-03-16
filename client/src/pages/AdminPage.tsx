@@ -55,14 +55,87 @@ export function AdminPage() {
     loadData();
   }, [loadData]);
 
-  // CSV Import
+  // CSV Import — sanitize common quoting issues from LLM output
+  function sanitizeCsv(raw: string): string {
+    const lines = raw.split('\n');
+    const result: string[] = [];
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed) continue;
+
+      // Pass header row through as-is
+      if (trimmed.toLowerCase().startsWith('category,')) {
+        result.push(trimmed);
+        continue;
+      }
+
+      // Fix lines field by field: split respecting proper quotes, re-quote as needed
+      const fields: string[] = [];
+      let current = '';
+      let inQuotes = false;
+      let i = 0;
+
+      while (i < trimmed.length) {
+        const ch = trimmed[i];
+        if (inQuotes) {
+          if (ch === '"' && i + 1 < trimmed.length && trimmed[i + 1] === '"') {
+            // Properly escaped quote
+            current += '""';
+            i += 2;
+          } else if (ch === '"') {
+            // Could be end of field or unescaped interior quote
+            if (i + 1 >= trimmed.length || trimmed[i + 1] === ',') {
+              // Closing quote
+              inQuotes = false;
+              i++;
+            } else {
+              // Unescaped interior quote — double it
+              current += '""';
+              i++;
+            }
+          } else {
+            current += ch;
+            i++;
+          }
+        } else {
+          if (ch === '"' && current === '') {
+            // Opening quote
+            inQuotes = true;
+            i++;
+          } else if (ch === ',') {
+            fields.push(current);
+            current = '';
+            i++;
+          } else {
+            current += ch;
+            i++;
+          }
+        }
+      }
+      fields.push(current);
+
+      // Re-encode fields with proper CSV quoting
+      const encoded = fields.map((f) => {
+        if (f.includes(',') || f.includes('"') || f.includes('\n')) {
+          return '"' + f.replace(/"/g, '""') + '"';
+        }
+        return f;
+      });
+      result.push(encoded.join(','));
+    }
+
+    return result.join('\n');
+  }
+
   const handleCsvImport = async (text: string) => {
     setError('');
     setImportResult(null);
     setImporting(true);
 
     try {
-      const result = await importCsv(text);
+      const cleaned = sanitizeCsv(text);
+      const result = await importCsv(cleaned);
       setImportResult(result);
       setCsvText('');
       const cats = await fetchCategories();

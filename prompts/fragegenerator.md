@@ -32,7 +32,9 @@ category,question_text,correct_answer,wrong_answer1,wrong_answer2,wrong_answer3,
 
 ### Regler för CSV:en
 - **Första raden** ska alltid vara rubrikraden ovan
-- Värden som innehåller kommatecken ska omslutas med citattecken (`"`)
+- Värden som innehåller **kommatecken** eller **citattecken** ska omslutas med citattecken (`"`)
+- Citattecken **inuti** ett fält ska dubblas: `""` — Exempel: `"Vad betyder ""tendens""?"` 
+- **Använd aldrig** citattecken i fråge- eller svarstext om det inte är absolut nödvändigt — omformulera hellre
 - Inga tomma rader
 - Inga extra kolumner
 - **points** ska vara: `200`, `400`, `600`, `800` eller `1000`
