@@ -59,6 +59,7 @@ category,question_text,correct_answer,wrong_answer1,wrong_answer2,wrong_answer3,
 - Ska vara **ungefär lika långa** som det rätta svaret
 - Ska vara tydligt felaktiga för den som kan ämnet
 - Undvik "alla ovanstående" eller "inget av ovanstående"
+- **Skapa ALDRIG sant/falskt-frågor** — alla frågor ska ha 3 felaktiga och 1 korrekt svarsalternativ med meningsfull text
 
 ### Svårighetsprogressionen
 Inom en kategori ska det finnas en **tydlig trappa**:
